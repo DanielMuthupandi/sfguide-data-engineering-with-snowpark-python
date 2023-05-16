@@ -16,27 +16,28 @@ class SnowflakeConnection(object):
 
 # Function to return a configured Snowpark session
 def get_snowpark_session() -> Session:
-    # if running in snowflake
-    if SnowflakeConnection().connection:
-        # Not sure what this does?
-        session = SnowflakeConnection().connection
-    # if running locally with a config file
-    # TODO: Look for a creds.json style file. This should be the way all snowpark
-    # related tools work IMO
-    # if using snowsql config, like snowcli does
-    elif os.path.exists(os.path.expanduser('~/.snowsql/config')):
-        snowpark_config = get_snowsql_config()
-        SnowflakeConnection().connection = Session.builder.configs(snowpark_config).create()
-    # otherwise configure from environment variables
-    elif "SNOWSQL_ACCOUNT" in os.environ:
+    #---# if running in snowflake
+    #---if SnowflakeConnection().connection:
+    #---    # Not sure what this does?
+    #---    session = SnowflakeConnection().connection
+    #---# if running locally with a config file
+    #---# TODO: Look for a creds.json style file. This should be the way all snowpark
+    #---# related tools work IMO
+    #---# if using snowsql config, like snowcli does
+    #---elif os.path.exists(os.path.expanduser('~/.snowsql/config')):
+    #---    snowpark_config = get_snowsql_config()
+    #---    SnowflakeConnection().connection = Session.builder.configs(snowpark_config).create()
+    #---# otherwise configure from environment variables
+    #---elif 1:
+    if 1:
         snowpark_config = {
-            "account": os.environ["SNOWSQL_ACCOUNT"],
-            "user": os.environ["SNOWSQL_USER"],
-            "password": os.environ["SNOWSQL_PWD"],
-            "role": os.environ["SNOWSQL_ROLE"],
-            "warehouse": os.environ["SNOWSQL_WAREHOUSE"],
-            "database": os.environ["SNOWSQL_DATABASE"],
-            "schema": os.environ["SNOWSQL_SCHEMA"]
+            "account": 'zx64457.ca-central-1.aws',
+            "user": 'Jeslink',
+            "password": 'Podapodi@123',
+            "role": 'ACCOUNTADMIN',
+            "warehouse": 'COMPUTE_WH',
+            "database": 'HOL_DB',
+            "schema": 'RAW_POS'
         }
         SnowflakeConnection().connection = Session.builder.configs(snowpark_config).create()
 
